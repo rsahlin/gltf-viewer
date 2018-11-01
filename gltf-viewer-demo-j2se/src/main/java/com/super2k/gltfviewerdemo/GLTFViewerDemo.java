@@ -149,6 +149,13 @@ public class GLTFViewerDemo
     }
 
     protected void handleMouseMove(float[] move) {
+        InputProcessor ip = InputProcessor.getInstance();
+        if (ip.isKeyPressed(java.awt.event.KeyEvent.VK_X)) {
+            move[1] = 0;
+        }
+        if (ip.isKeyPressed(java.awt.event.KeyEvent.VK_Y)) {
+            move[0] = 0;
+        }
         if (gltfNode != null && gltfNode.getGLTF() != null) {
             GLTF gltf = gltfNode.getGLTF();
             switch (navigationMode) {
@@ -226,6 +233,7 @@ public class GLTFViewerDemo
     protected void setup(int width, int height) {
         coreApp.setRootNode(root);
         coreApp.addPointerInput(root);
+
         InputProcessor.getInstance().setMaxPointers(20);
         // InputProcessor.getInstance().addMMIListener(this);
         root.setObjectInputListener(this);
