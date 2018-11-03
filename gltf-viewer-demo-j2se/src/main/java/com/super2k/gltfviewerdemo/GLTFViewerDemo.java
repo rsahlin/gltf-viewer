@@ -8,6 +8,7 @@ import com.graphicsengine.io.GSONGraphicsEngineFactory;
 import com.nucleus.CoreApp;
 import com.nucleus.CoreApp.ClientApplication;
 import com.nucleus.SimpleLogger;
+import com.nucleus.assets.AssetManager;
 import com.nucleus.camera.ViewFrustum;
 import com.nucleus.common.Type;
 import com.nucleus.event.EventManager;
@@ -206,8 +207,8 @@ public class GLTFViewerDemo
         viewFrustum = root.getNodeById("scene", LayerNode.class).getViewFrustum();
         gltfNode = root.getNodeById("gltf", GLTFNode.class);
         path = root.getProperty(RootNodeImpl.GLTF_PATH, null);
-        // folders = AssetManager.getInstance().listResourceFolders(path);
-        // gltfFilenames = AssetManager.getInstance().listFiles(path, folders, ".gltf");
+        folders = AssetManager.getInstance().listResourceFolders(path);
+        gltfFilenames = AssetManager.getInstance().listFiles(path, folders, ".gltf");
         float[] values = viewFrustum.getValues();
         // If y is going down then reverse y so that 0 is at bottom which is the same as OpenGL
         InputProcessor.getInstance().setPointerTransform(viewFrustum.getWidth() / width,
