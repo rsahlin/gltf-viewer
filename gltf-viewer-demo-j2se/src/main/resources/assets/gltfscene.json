@@ -7,7 +7,8 @@
         children:
         [
 //            {id:gltf,type:gltfnode,transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
-            {id:gltf,type:gltfnode,glTFName:"gearboxassy/GearboxAssy.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
+            {id:gltf,type:gltfnode,glTFName:"waterbottle/WaterBottle.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
+//            {id:gltf,type:gltfnode,glTFName:"gearboxassy/GearboxAssy.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"box/Box.gltf",transform:{translate:[0,0,0],scale:[0.5,0.5,0.5],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"texturecoordinatetest/TextureCoordinateTest.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"2cylinderengine/2CylinderEngine.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
