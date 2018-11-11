@@ -66,7 +66,7 @@ public class GLTFViewerDemo
 
     public static final String GLTFVIEWER_DEMO = "gltfviewer";
     public static final String NAME = "GLTF Render demo";
-    public static final String VERSION = "0.3";
+    public static final String VERSION = "0.4";
     public static final Renderers GL_VERSION = Renderers.GLES31;
 
     private ArrayDeque<Message> messages = new ArrayDeque<>();
