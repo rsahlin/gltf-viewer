@@ -14,12 +14,16 @@ import com.nucleus.common.Type;
 import com.nucleus.event.EventManager;
 import com.nucleus.event.EventManager.EventHandler;
 import com.nucleus.io.SceneSerializer;
+import com.nucleus.mmi.KeyEvent;
+import com.nucleus.mmi.KeyEvent.Action;
 import com.nucleus.mmi.MMIEventListener;
 import com.nucleus.mmi.MMIPointerEvent;
 import com.nucleus.mmi.NodeInputListener;
 import com.nucleus.mmi.PointerData;
 import com.nucleus.mmi.PointerMotionData;
 import com.nucleus.mmi.core.InputProcessor;
+import com.nucleus.mmi.core.KeyListener;
+import com.nucleus.opengl.GLESWrapper.Mode;
 import com.nucleus.opengl.GLESWrapper.Renderers;
 import com.nucleus.opengl.GLException;
 import com.nucleus.renderer.NucleusRenderer;
@@ -38,7 +42,8 @@ import com.nucleus.scene.gltf.Scene;
 import com.nucleus.vecmath.Vec2;
 
 public class GLTFViewerDemo
-        implements MMIEventListener, RenderContextListener, ClientApplication, EventHandler<Node>, NodeInputListener {
+        implements MMIEventListener, RenderContextListener, ClientApplication, EventHandler<Node>, NodeInputListener,
+        KeyListener {
 
     public static class Message {
         public final String key;
@@ -236,6 +241,7 @@ public class GLTFViewerDemo
         coreApp.addPointerInput(root);
 
         InputProcessor.getInstance().setMaxPointers(20);
+        InputProcessor.getInstance().addKeyListener(this);
         // InputProcessor.getInstance().addMMIListener(this);
         root.setObjectInputListener(this);
     }
@@ -399,6 +405,24 @@ public class GLTFViewerDemo
     public EventConfiguration getConfiguration() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public void onKeyEvent(KeyEvent event) {
+        switch (event.getKeyValue()) {
+            case java.awt.event.KeyEvent.VK_SPACE:
+                toggleSpace(event);
+                break;
+
+        }
+    }
+
+    private void toggleSpace(KeyEvent event) {
+        if (event.getAction() == Action.PRESSED) {
+            gltfNode.getNodeRenderer().forceRenderMode(Mode.POINTS);
+        } else {
+            gltfNode.getNodeRenderer().forceRenderMode(null);
+        }
     }
 
 }

@@ -11,11 +11,11 @@
 //            {id:gltf,type:gltfnode,glTFName:"gearboxassy/GearboxAssy.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"box/Box.gltf",transform:{translate:[0,0,0],scale:[0.5,0.5,0.5],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"boxtextured/BoxTextured.gltf",transform:{translate:[0,0,0],scale:[0.5,0.5,0.5],axisAngle:{values:[0,1,0,0]}}}
-            {id:gltf,type:gltfnode,glTFName:"texturecoordinatetest/TextureCoordinateTest.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
+//            {id:gltf,type:gltfnode,glTFName:"texturecoordinatetest/TextureCoordinateTest.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"2cylinderengine/2CylinderEngine.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"cameras/Cameras.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"orientationtest/OrientationTest.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
-//            {id:gltf,type:gltfnode,glTFName:"duck/Duck.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
+            {id:gltf,type:gltfnode,glTFName:"duck/Duck.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
         ]},
         {layer:UI,id:ui,type:layernode,bounds:{type:RECTANGULAR}, properties:{POINTERINPUT:true},
         renderPass:[{id:mainpass,pass:MAIN,renderState:{clearFlags:0,cullFace:NONE,depthFunc:NONE},target:{id:main,target:FRAMEBUFFER}}],
