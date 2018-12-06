@@ -25,6 +25,7 @@ import com.nucleus.mmi.core.InputProcessor;
 import com.nucleus.mmi.core.KeyListener;
 import com.nucleus.opengl.GLESWrapper.Mode;
 import com.nucleus.opengl.GLESWrapper.Renderers;
+import com.nucleus.opengl.GLES20Wrapper;
 import com.nucleus.opengl.GLException;
 import com.nucleus.renderer.NucleusRenderer;
 import com.nucleus.renderer.NucleusRenderer.RenderContextListener;
@@ -45,6 +46,16 @@ public class GLTFViewerDemo
         implements MMIEventListener, RenderContextListener, ClientApplication, EventHandler<Node>, NodeInputListener,
         KeyListener {
 
+    public enum Action {
+        reset(),
+        camera(),
+        hand(),
+        loadnext(),
+        loadprevious();
+        
+    }
+    
+    
     public static class Message {
         public final String key;
         public final String value;
@@ -287,13 +298,14 @@ public class GLTFViewerDemo
     public void handleEvent(Node object, String category, String value) {
         SimpleLogger.d(getClass(), category);
         if (gltfNode != null && gltfNode.getGLTF() != null) {
+            Action action = Action.valueOf(category);
             Scene scene = gltfNode.getGLTF().getDefaultScene();
-            switch (category) {
-                case "reset":
+            switch (action) {
+                case reset:
                     scene.clearSceneTransform();
                     sceneRotator.resetRotation();
                     break;
-                case "camera":
+                case camera:
                     int selected = scene.getSelectedCameraIndex();
                     if (selected == 0) {
                         scene.selectCameraInstance(scene.getCameraInstanceCount() - 1);
@@ -301,7 +313,7 @@ public class GLTFViewerDemo
                         scene.selectCameraInstance(0);
                     }
                     break;
-                case "hand":
+                case hand:
                     switch (navigationMode) {
                         case ROTATE:
                             navigationMode = Navigation.TRANSLATE;
@@ -314,16 +326,13 @@ public class GLTFViewerDemo
                     }
                     SimpleLogger.d(getClass(), "Set navigation mode to " + navigationMode);
                     break;
-                case "loadnext":
-                    loadNext();
+                case loadnext:
+                case loadprevious:
+                    addMessage(new Message(action.name(), null));
                     break;
             }
         }
 
-    }
-
-    protected void loadNext() {
-        addMessage(new Message("loadnext", null));
     }
 
     @Override
@@ -351,23 +360,49 @@ public class GLTFViewerDemo
     }
 
     private void handleMessage(Message msg) {
-        if (msg.key.contentEquals("loadnext")) {
-            if (gltfNode != null) {
-                try {
-                    gltfNode.deleteAsset(renderer.getGLES());
-                    modelIndex++;
-                    if (modelIndex >= gltfFilenames.size()) {
-                        modelIndex = 0;
-                    }
-                    loadGLTFAsset();
-                } catch (GLException | IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
+        Action action = Action.valueOf(msg.key);
+        switch (action) {
+            case loadnext:
+                load(modelIndex + 1);
+                break;
+            case loadprevious:
+                load(modelIndex - 1);
+                break;
+                default:
+                    //Do nothing
+            
         }
     }
 
+    private boolean deleteAsset(GLTFNode asset, GLES20Wrapper wrapper) {
+        if (gltfNode != null) {
+            try {
+                gltfNode.deleteAsset(wrapper);
+            } catch (GLException e) {
+                e.printStackTrace();
+                throw new IllegalArgumentException(e);
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    private void load(int index) {
+        if (deleteAsset(gltfNode, renderer.getGLES())) {
+            try {
+                if (modelIndex < 0) {
+                    modelIndex = gltfFilenames.size() - 1;
+                } else if (modelIndex >= gltfFilenames.size()) {
+                    modelIndex = 0;
+                }
+                loadGLTFAsset();
+            } catch (GLException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    
     @Override
     public boolean onInputEvent(Node obj, PointerData event) {
         if (obj.getId().contentEquals("ui")) {
@@ -418,7 +453,7 @@ public class GLTFViewerDemo
     }
 
     private void toggleSpace(KeyEvent event) {
-        if (event.getAction() == Action.PRESSED) {
+        if (event.getAction() == com.nucleus.mmi.KeyEvent.Action.PRESSED) {
             gltfNode.getNodeRenderer().forceRenderMode(Mode.POINTS);
         } else {
             gltfNode.getNodeRenderer().forceRenderMode(null);
