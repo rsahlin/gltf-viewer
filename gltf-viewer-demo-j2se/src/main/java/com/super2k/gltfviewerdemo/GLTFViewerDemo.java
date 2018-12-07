@@ -15,7 +15,6 @@ import com.nucleus.event.EventManager;
 import com.nucleus.event.EventManager.EventHandler;
 import com.nucleus.io.SceneSerializer;
 import com.nucleus.mmi.KeyEvent;
-import com.nucleus.mmi.KeyEvent.Action;
 import com.nucleus.mmi.MMIEventListener;
 import com.nucleus.mmi.MMIPointerEvent;
 import com.nucleus.mmi.NodeInputListener;
@@ -23,9 +22,9 @@ import com.nucleus.mmi.PointerData;
 import com.nucleus.mmi.PointerMotionData;
 import com.nucleus.mmi.core.InputProcessor;
 import com.nucleus.mmi.core.KeyListener;
+import com.nucleus.opengl.GLES20Wrapper;
 import com.nucleus.opengl.GLESWrapper.Mode;
 import com.nucleus.opengl.GLESWrapper.Renderers;
-import com.nucleus.opengl.GLES20Wrapper;
 import com.nucleus.opengl.GLException;
 import com.nucleus.renderer.NucleusRenderer;
 import com.nucleus.renderer.NucleusRenderer.RenderContextListener;
@@ -52,10 +51,9 @@ public class GLTFViewerDemo
         hand(),
         loadnext(),
         loadprevious();
-        
+
     }
-    
-    
+
     public static class Message {
         public final String key;
         public final String value;
@@ -368,9 +366,9 @@ public class GLTFViewerDemo
             case loadprevious:
                 load(modelIndex - 1);
                 break;
-                default:
-                    //Do nothing
-            
+            default:
+                // Do nothing
+
         }
     }
 
@@ -386,10 +384,11 @@ public class GLTFViewerDemo
         }
         return false;
     }
-    
+
     private void load(int index) {
         if (deleteAsset(gltfNode, renderer.getGLES())) {
             try {
+                modelIndex = index;
                 if (modelIndex < 0) {
                     modelIndex = gltfFilenames.size() - 1;
                 } else if (modelIndex >= gltfFilenames.size()) {
@@ -399,10 +398,11 @@ public class GLTFViewerDemo
             } catch (GLException | IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            SimpleLogger.d(getClass(), "GLTF asset is null");
         }
     }
-    
-    
+
     @Override
     public boolean onInputEvent(Node obj, PointerData event) {
         if (obj.getId().contentEquals("ui")) {
