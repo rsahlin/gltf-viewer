@@ -50,7 +50,8 @@ public class GLTFViewerDemo
         camera(),
         hand(),
         loadnext(),
-        loadprevious();
+        loadprevious(),
+        tbn_vectors();
 
     }
 
@@ -88,6 +89,7 @@ public class GLTFViewerDemo
     private Navigation navigationMode = Navigation.ROTATE;
     private GLTFNode gltfNode;
     private AlignedNodeTransform sceneRotator;
+    private EventConfiguration eventConfig = new EventConfiguration(0.5f, 30f);
 
     private String[] folders;
     /**
@@ -296,41 +298,7 @@ public class GLTFViewerDemo
     public void handleEvent(Node object, String category, String value) {
         SimpleLogger.d(getClass(), category);
         if (gltfNode != null && gltfNode.getGLTF() != null) {
-            Action action = Action.valueOf(category);
-            Scene scene = gltfNode.getGLTF().getDefaultScene();
-            switch (action) {
-                case reset:
-                    scene.clearSceneTransform();
-                    sceneRotator.resetRotation();
-                    break;
-                case camera:
-                    int selected = scene.getSelectedCameraIndex();
-                    if (selected == 0) {
-                        scene.selectCameraInstance(scene.getCameraInstanceCount() - 1);
-                    } else {
-                        scene.selectCameraInstance(0);
-                    }
-                    break;
-                case hand:
-                    switch (navigationMode) {
-                        case ROTATE:
-                            navigationMode = Navigation.TRANSLATE;
-                            break;
-                        case TRANSLATE:
-                            navigationMode = Navigation.ROTATE;
-                            break;
-                        default:
-                            throw new IllegalArgumentException("Not implemented " + navigationMode);
-                    }
-                    SimpleLogger.d(getClass(), "Set navigation mode to " + navigationMode);
-                    break;
-                case loadnext:
-                case loadprevious:
-                    addMessage(new Message(action.name(), null));
-                    break;
-            }
         }
-
     }
 
     @Override
@@ -432,14 +400,49 @@ public class GLTFViewerDemo
 
     @Override
     public boolean onClick(Node obj, PointerData event) {
-        // TODO Auto-generated method stub
-        return false;
+        if (gltfNode != null && gltfNode.getGLTF() != null) {
+            Action action = Action.valueOf(obj.getId());
+            Scene scene = gltfNode.getGLTF().getDefaultScene();
+            switch (action) {
+                case reset:
+                    scene.clearSceneTransform();
+                    sceneRotator.resetRotation();
+                    break;
+                case camera:
+                    int selected = scene.getSelectedCameraIndex();
+                    if (selected == 0) {
+                        scene.selectCameraInstance(scene.getCameraInstanceCount() - 1);
+                    } else {
+                        scene.selectCameraInstance(0);
+                    }
+                    break;
+                case hand:
+                    switch (navigationMode) {
+                        case ROTATE:
+                            navigationMode = Navigation.TRANSLATE;
+                            break;
+                        case TRANSLATE:
+                            navigationMode = Navigation.ROTATE;
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Not implemented " + navigationMode);
+                    }
+                    SimpleLogger.d(getClass(), "Set navigation mode to " + navigationMode);
+                    break;
+                case tbn_vectors:
+                    GLTF.debugTBN = !GLTF.debugTBN;
+                case loadnext:
+                case loadprevious:
+                    addMessage(new Message(action.name(), null));
+                    break;
+            }
+        }
+        return true;
     }
 
     @Override
     public EventConfiguration getConfiguration() {
-        // TODO Auto-generated method stub
-        return null;
+        return eventConfig;
     }
 
     @Override

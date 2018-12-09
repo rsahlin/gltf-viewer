@@ -25,24 +25,24 @@
             {id:mainui,type:quadNode,transform:{scale:[1,1,1],translate:[0,0,0]},textureRef:{source:"assets/icons.tex"},
             maxQuads:100,
             children:[{
-                id:camera,type:button,bounds:{type:RECTANGULAR,rect:{values:[-1920,1080,3840,2160]}},
+                id:camera,type:toggle,bounds:{type:RECTANGULAR,rect:{values:[-1920,1080,3840,2160]}},
                 transform:{scale:[1,1,1],translate:[-1850,-980,0]},material:{emissive:[1,0.2,0.2,1]},frame:0,
-                properties:{POINTERINPUT:true,onclick:"gltfviewer:camera"}},
-                {id:reset,type:button,bounds:{type:RECTANGULAR},
+                properties:{POINTERINPUT:true}},
+                {id:reset,type:toggle,bounds:{type:RECTANGULAR},
                 transform:{scale:[1,1,1],translate:[-1650,-980,0]},material:{emissive:[1,0.2,0.2,1]},frame:1,
-                properties:{POINTERINPUT:true,onclick:"gltfviewer:reset"}},
-                {id:hand,type:button,bounds:{type:RECTANGULAR},
+                properties:{POINTERINPUT:true}},
+                {id:hand,type:toggle,bounds:{type:RECTANGULAR},
                 transform:{scale:[1,1,1],translate:[-1450,-980,0]},material:{emissive:[1,0.2,0.2,1]},frame:2,
-                properties:{POINTERINPUT:true,onclick:"gltfviewer:hand"}},
-                {id:vector_toggle,type:button,bounds:{type:RECTANGULAR},
+                properties:{POINTERINPUT:true}},
+                {id:tbn_vectors,type:toggle,bounds:{type:RECTANGULAR},
                 transform:{scale:[1,1,1],translate:[-1250,-980,0]},material:{emissive:[1,0.2,0.2,1]},frame:5,
-                properties:{POINTERINPUT:true,onclick:"gltfviewer:vector"}},
-                {id:loadprevious,type:button,bounds:{type:RECTANGULAR},
+                properties:{POINTERINPUT:true}},
+                {id:loadprevious,type:toggle,bounds:{type:RECTANGULAR},
                 transform:{scale:[1,1,1],translate:[-200,980,0]},material:{emissive:[1,0.2,0.2,1]},frame:3,
-                properties:{POINTERINPUT:true,onclick:"gltfviewer:loadprevious"}},
-                {id:loadnext,type:button,bounds:{type:RECTANGULAR},
+                properties:{POINTERINPUT:true}},
+                {id:loadnext,type:toggle,bounds:{type:RECTANGULAR},
                 transform:{scale:[1,1,1],translate:[200,980,0]},material:{emissive:[1,0.2,0.2,1]},frame:4,
-                properties:{POINTERINPUT:true,onclick:"gltfviewer:loadnext"}}
+                properties:{POINTERINPUT:true}}
             ]}
         ]}
     ]
