@@ -39,6 +39,7 @@ import com.nucleus.scene.RootNodeImpl;
 import com.nucleus.scene.gltf.AlignedNodeTransform;
 import com.nucleus.scene.gltf.GLTF;
 import com.nucleus.scene.gltf.Scene;
+import com.nucleus.ui.Toggle;
 import com.nucleus.vecmath.Vec2;
 
 public class GLTFViewerDemo
@@ -400,42 +401,8 @@ public class GLTFViewerDemo
 
     @Override
     public boolean onClick(Node obj, PointerData event) {
+        SimpleLogger.d(getClass(), "onClick()");
         if (gltfNode != null && gltfNode.getGLTF() != null) {
-            Action action = Action.valueOf(obj.getId());
-            Scene scene = gltfNode.getGLTF().getDefaultScene();
-            switch (action) {
-                case reset:
-                    scene.clearSceneTransform();
-                    sceneRotator.resetRotation();
-                    break;
-                case camera:
-                    int selected = scene.getSelectedCameraIndex();
-                    if (selected == 0) {
-                        scene.selectCameraInstance(scene.getCameraInstanceCount() - 1);
-                    } else {
-                        scene.selectCameraInstance(0);
-                    }
-                    break;
-                case hand:
-                    switch (navigationMode) {
-                        case ROTATE:
-                            navigationMode = Navigation.TRANSLATE;
-                            break;
-                        case TRANSLATE:
-                            navigationMode = Navigation.ROTATE;
-                            break;
-                        default:
-                            throw new IllegalArgumentException("Not implemented " + navigationMode);
-                    }
-                    SimpleLogger.d(getClass(), "Set navigation mode to " + navigationMode);
-                    break;
-                case tbn_vectors:
-                    GLTF.debugTBN = !GLTF.debugTBN;
-                case loadnext:
-                case loadprevious:
-                    addMessage(new Message(action.name(), null));
-                    break;
-            }
         }
         return true;
     }
@@ -460,6 +427,46 @@ public class GLTFViewerDemo
             gltfNode.getNodeRenderer().forceRenderMode(Mode.POINTS);
         } else {
             gltfNode.getNodeRenderer().forceRenderMode(null);
+        }
+    }
+
+    @Override
+    public void onStateChange(Toggle toggle) {
+        SimpleLogger.d(getClass(), "onStateChange() " + toggle.getId() + ", " + toggle.isSelected());
+        Action action = Action.valueOf(toggle.getId());
+        Scene scene = gltfNode.getGLTF().getDefaultScene();
+        switch (action) {
+            case reset:
+                scene.clearSceneTransform();
+                sceneRotator.resetRotation();
+                break;
+            case camera:
+                int selected = scene.getSelectedCameraIndex();
+                if (selected == 0) {
+                    scene.selectCameraInstance(scene.getCameraInstanceCount() - 1);
+                } else {
+                    scene.selectCameraInstance(0);
+                }
+                break;
+            case hand:
+                switch (navigationMode) {
+                    case ROTATE:
+                        navigationMode = Navigation.TRANSLATE;
+                        break;
+                    case TRANSLATE:
+                        navigationMode = Navigation.ROTATE;
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Not implemented " + navigationMode);
+                }
+                SimpleLogger.d(getClass(), "Set navigation mode to " + navigationMode);
+                break;
+            case tbn_vectors:
+                GLTF.debugTBN = !GLTF.debugTBN;
+            case loadnext:
+            case loadprevious:
+                addMessage(new Message(action.name(), null));
+                break;
         }
     }
 
