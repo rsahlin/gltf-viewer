@@ -432,7 +432,7 @@ public class GLTFViewerDemo
 
     @Override
     public void onStateChange(Toggle toggle) {
-        SimpleLogger.d(getClass(), "onStateChange() " + toggle.getId() + ", " + toggle.isSelected());
+        SimpleLogger.d(getClass(), "onStateChange() " + toggle.getId() + ", " + toggle.getSelected());
         Action action = Action.valueOf(toggle.getId());
         Scene scene = gltfNode.getGLTF().getDefaultScene();
         switch (action) {
