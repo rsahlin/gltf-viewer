@@ -7,14 +7,14 @@
         children:
         [
 //            {id:gltf,type:gltfnode,transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
-            {id:gltf,type:gltfnode,glTFName:"waterbottle/WaterBottle.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
+//            {id:gltf,type:gltfnode,glTFName:"waterbottle/WaterBottle.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"gearboxassy/GearboxAssy.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"box/Box.gltf",transform:{translate:[0,0,0],scale:[0.5,0.5,0.5],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"boxtextured/BoxTextured.gltf",transform:{translate:[0,0,0],scale:[0.5,0.5,0.5],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"texturecoordinatetest/TextureCoordinateTest.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"2cylinderengine/2CylinderEngine.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"cameras/Cameras.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
-//            {id:gltf,type:gltfnode,glTFName:"orientationtest/OrientationTest.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
+            {id:gltf,type:gltfnode,glTFName:"orientationtest/OrientationTest.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"duck/Duck.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
         ]},
         {layer:UI,id:ui,type:layernode,bounds:{type:RECTANGULAR}, properties:{POINTERINPUT:true},
@@ -25,7 +25,7 @@
             {id:mainui,type:quadNode,transform:{scale:[1,1,1],translate:[0,0,0]},textureRef:{source:"assets/icons.tex"},
             maxQuads:100,
             children:[{
-                id:camera,type:toggle,bounds:{type:RECTANGULAR,rect:{values:[-1920,1080,3840,2160]}},
+                id:camera,type:toggle,bounds:{type:RECTANGULAR},
                 transform:{scale:[1,1,1],translate:[-1850,-980,0]},material:{emissive:[1,0.2,0.2,1]},selectedFrames:[0,10],
                 properties:{POINTERINPUT:true}},
                 {id:reset,type:toggle,bounds:{type:RECTANGULAR},

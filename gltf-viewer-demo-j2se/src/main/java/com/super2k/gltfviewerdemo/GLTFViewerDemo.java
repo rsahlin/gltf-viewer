@@ -52,7 +52,8 @@ public class GLTFViewerDemo
         hand(),
         loadnext(),
         loadprevious(),
-        tbn_vectors();
+        tbn_vectors(),
+        ui();
 
     }
 
@@ -167,21 +168,25 @@ public class GLTFViewerDemo
     }
 
     protected void handleMouseMove(float[] move) {
+        float[] translate = new float[] { move[0], move[1], 0 };
         InputProcessor ip = InputProcessor.getInstance();
         if (ip.isKeyPressed(java.awt.event.KeyEvent.VK_X)) {
-            move[1] = 0;
-        }
-        if (ip.isKeyPressed(java.awt.event.KeyEvent.VK_Y)) {
-            move[0] = 0;
+            translate[1] = 0;
+        } else if (ip.isKeyPressed(java.awt.event.KeyEvent.VK_Y)) {
+            translate[0] = 0;
+        } else if (ip.isKeyPressed(java.awt.event.KeyEvent.VK_Z)) {
+            // Up moves into the screen
+            translate[2] = -move[1];
+            translate[0] = 0;
+            translate[1] = 0;
         }
         if (gltfNode != null && gltfNode.getGLTF() != null) {
-            GLTF gltf = gltfNode.getGLTF();
             switch (navigationMode) {
                 case ROTATE:
-                    sceneRotator.rotate(move);
+                    sceneRotator.rotate(translate);
                     break;
                 case TRANSLATE:
-                    sceneRotator.translate(move);
+                    sceneRotator.translate(translate);
                     break;
                 case SCALE:
                     break;
@@ -240,7 +245,7 @@ public class GLTFViewerDemo
 
     private void initGLTF() {
         sceneRotator = new AlignedNodeTransform(gltfNode.getGLTF().getDefaultScene(),
-                new float[] { 1 / viewFrustum.getWidth(), 1 / viewFrustum.getHeight() });
+                new float[] { 1 / viewFrustum.getWidth(), 1 / viewFrustum.getHeight(), 1 / viewFrustum.getDepth() });
     }
 
     private void loadGLTFAsset() throws IOException, GLException {
