@@ -14,14 +14,14 @@ import com.nucleus.common.Type;
 import com.nucleus.event.EventManager;
 import com.nucleus.event.EventManager.EventHandler;
 import com.nucleus.io.SceneSerializer;
-import com.nucleus.mmi.KeyEvent;
-import com.nucleus.mmi.MMIEventListener;
-import com.nucleus.mmi.MMIPointerEvent;
-import com.nucleus.mmi.NodeInputListener;
-import com.nucleus.mmi.PointerData;
-import com.nucleus.mmi.PointerMotionData;
-import com.nucleus.mmi.core.InputProcessor;
-import com.nucleus.mmi.core.KeyListener;
+import com.nucleus.mmi.Key;
+import com.nucleus.mmi.MMIPointer;
+import com.nucleus.mmi.MMIPointerInput;
+import com.nucleus.mmi.Pointer;
+import com.nucleus.mmi.PointerMotion;
+import com.nucleus.mmi.UIElementInput;
+import com.nucleus.mmi.core.CoreInput;
+import com.nucleus.mmi.core.KeyInput;
 import com.nucleus.opengl.GLES20Wrapper;
 import com.nucleus.opengl.GLESWrapper.Mode;
 import com.nucleus.opengl.GLESWrapper.Renderers;
@@ -39,12 +39,13 @@ import com.nucleus.scene.RootNodeImpl;
 import com.nucleus.scene.gltf.AlignedNodeTransform;
 import com.nucleus.scene.gltf.GLTF;
 import com.nucleus.scene.gltf.Scene;
+import com.nucleus.ui.Button;
 import com.nucleus.ui.Toggle;
 import com.nucleus.vecmath.Vec2;
 
 public class GLTFViewerDemo
-        implements MMIEventListener, RenderContextListener, ClientApplication, EventHandler<Node>, NodeInputListener,
-        KeyListener {
+        implements MMIPointerInput, RenderContextListener, ClientApplication, EventHandler<Node>, UIElementInput,
+        KeyInput {
 
     public enum Action {
         reset(),
@@ -143,7 +144,7 @@ public class GLTFViewerDemo
     }
 
     @Override
-    public void onInputEvent(MMIPointerEvent event) {
+    public void onInput(MMIPointer event) {
 
         float[] pos = event.getPointerData().getCurrentPosition();
         switch (event.getAction()) {
@@ -169,7 +170,7 @@ public class GLTFViewerDemo
 
     protected void handleMouseMove(float[] move) {
         float[] translate = new float[] { move[0], move[1], 0 };
-        InputProcessor ip = InputProcessor.getInstance();
+        CoreInput ip = CoreInput.getInstance();
         if (ip.isKeyPressed(java.awt.event.KeyEvent.VK_X)) {
             translate[1] = 0;
         } else if (ip.isKeyPressed(java.awt.event.KeyEvent.VK_Y)) {
@@ -233,7 +234,7 @@ public class GLTFViewerDemo
         gltfFilenames = AssetManager.getInstance().listFiles(path, folders, ".gltf");
         float[] values = viewFrustum.getValues();
         // If y is going down then reverse y so that 0 is at bottom which is the same as OpenGL
-        InputProcessor.getInstance().setPointerTransform(viewFrustum.getWidth() / width,
+        CoreInput.getInstance().setPointerTransform(viewFrustum.getWidth() / width,
                 -viewFrustum.getHeight() / height, values[ViewFrustum.LEFT_INDEX],
                 values[ViewFrustum.TOP_INDEX]);
         if (gltfNode.getGLTF() == null) {
@@ -257,8 +258,8 @@ public class GLTFViewerDemo
         coreApp.setRootNode(root);
         coreApp.addPointerInput(root);
 
-        InputProcessor.getInstance().setMaxPointers(20);
-        InputProcessor.getInstance().addKeyListener(this);
+        CoreInput.getInstance().setMaxPointers(20);
+        CoreInput.getInstance().addKeyListener(this);
         // InputProcessor.getInstance().addMMIListener(this);
         root.setObjectInputListener(this);
     }
@@ -378,7 +379,7 @@ public class GLTFViewerDemo
     }
 
     @Override
-    public boolean onInputEvent(Node obj, PointerData event) {
+    public boolean onInputEvent(Node obj, Pointer event) {
         if (obj.getId().contentEquals("ui")) {
             switch (event.action) {
                 case ZOOM:
@@ -396,7 +397,7 @@ public class GLTFViewerDemo
     }
 
     @Override
-    public boolean onDrag(Node obj, PointerMotionData drag) {
+    public boolean onDrag(Node obj, PointerMotion drag) {
         if (obj.getId().contentEquals("ui")) {
             float[] move = drag.getDelta(1);
             handleMouseMove(move);
@@ -405,10 +406,8 @@ public class GLTFViewerDemo
     }
 
     @Override
-    public boolean onClick(Node obj, PointerData event) {
+    public boolean onClick(Node obj, Pointer event) {
         SimpleLogger.d(getClass(), "onClick()");
-        if (gltfNode != null && gltfNode.getGLTF() != null) {
-        }
         return true;
     }
 
@@ -418,7 +417,7 @@ public class GLTFViewerDemo
     }
 
     @Override
-    public void onKeyEvent(KeyEvent event) {
+    public void onKeyEvent(Key event) {
         switch (event.getKeyValue()) {
             case java.awt.event.KeyEvent.VK_SPACE:
                 toggleSpace(event);
@@ -427,8 +426,8 @@ public class GLTFViewerDemo
         }
     }
 
-    private void toggleSpace(KeyEvent event) {
-        if (event.getAction() == com.nucleus.mmi.KeyEvent.Action.PRESSED) {
+    private void toggleSpace(Key event) {
+        if (event.getAction() == com.nucleus.mmi.Key.Action.PRESSED) {
             gltfNode.getNodeRenderer().forceRenderMode(Mode.POINTS);
         } else {
             gltfNode.getNodeRenderer().forceRenderMode(null);
@@ -468,11 +467,26 @@ public class GLTFViewerDemo
                 break;
             case tbn_vectors:
                 GLTF.debugTBN = !GLTF.debugTBN;
+                break;
+            default:
+                // Do nothing.
+        }
+    }
+
+    @Override
+    public void onPressed(Button button) {
+        SimpleLogger.d(getClass(), "onPressed() " + button.getId());
+        Action action = Action.valueOf(button.getId());
+        switch (action) {
             case loadnext:
             case loadprevious:
                 addMessage(new Message(action.name(), null));
                 break;
+            default:
+                // Do nothing
+                break;
         }
+
     }
 
 }
