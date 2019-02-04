@@ -440,10 +440,6 @@ public class GLTFViewerDemo
         Action action = Action.valueOf(toggle.getId());
         Scene scene = gltfNode.getGLTF().getDefaultScene();
         switch (action) {
-            case reset:
-                scene.clearSceneTransform();
-                sceneRotator.resetRotation();
-                break;
             case camera:
                 int selected = scene.getSelectedCameraIndex();
                 if (selected == 0) {
@@ -477,10 +473,15 @@ public class GLTFViewerDemo
     public void onPressed(Button button) {
         SimpleLogger.d(getClass(), "onPressed() " + button.getId());
         Action action = Action.valueOf(button.getId());
+        Scene scene = gltfNode.getGLTF().getDefaultScene();
         switch (action) {
             case loadnext:
             case loadprevious:
                 addMessage(new Message(action.name(), null));
+                break;
+            case reset:
+                scene.clearSceneTransform();
+                sceneRotator.resetRotation();
                 break;
             default:
                 // Do nothing
