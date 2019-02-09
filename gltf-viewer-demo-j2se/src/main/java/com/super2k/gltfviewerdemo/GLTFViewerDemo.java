@@ -91,6 +91,8 @@ public class GLTFViewerDemo
 
     private Navigation navigationMode = Navigation.ROTATE;
     private GLTFNode gltfNode;
+    private int defaultSceneIndex = 0;
+    private int modelSceneIndex = -1;
     private AlignedNodeTransform sceneRotator;
     private EventConfiguration eventConfig = new EventConfiguration(0.5f, 30f);
 
@@ -240,18 +242,23 @@ public class GLTFViewerDemo
         if (gltfNode.getGLTF() == null) {
             loadGLTFAsset();
         } else {
-            initGLTF();
+            initGLTF(gltfNode.getGLTF());
         }
     }
 
-    private void initGLTF() {
-        sceneRotator = new AlignedNodeTransform(gltfNode.getGLTF().getDefaultScene(),
+    private void initGLTF(GLTF gltf) {
+        sceneRotator = new AlignedNodeTransform(gltf.getDefaultScene(),
                 new float[] { 1 / viewFrustum.getWidth(), 1 / viewFrustum.getHeight(), 1 / viewFrustum.getDepth() });
+        defaultSceneIndex = gltf.getSceneIndex();
+        com.nucleus.scene.gltf.Node modelNode = gltf.getDefaultScene().getFirstNodeWithMesh();
+        int nodeIndex = gltf.getNodeIndex(modelNode);
+        Scene modelScene = new Scene(gltf, new int[] { nodeIndex });
+        modelSceneIndex = gltf.addScene(modelScene);
     }
 
     private void loadGLTFAsset() throws IOException, GLException {
         gltfNode.loadGLTFAsset(renderer.getGLES(), gltfFilenames.get(modelIndex));
-        initGLTF();
+        initGLTF(gltfNode.getGLTF());
     }
 
     protected void setup(int width, int height) {
@@ -438,15 +445,10 @@ public class GLTFViewerDemo
     public void onStateChange(Toggle toggle) {
         SimpleLogger.d(getClass(), "onStateChange() " + toggle.getId() + ", " + toggle.getSelected());
         Action action = Action.valueOf(toggle.getId());
-        Scene scene = gltfNode.getGLTF().getDefaultScene();
         switch (action) {
             case camera:
-                int selected = scene.getSelectedCameraIndex();
-                if (selected == 0) {
-                    scene.selectCameraInstance(scene.getCameraInstanceCount() - 1);
-                } else {
-                    scene.selectCameraInstance(0);
-                }
+                switchScene(toggle.getSelected() == 0 ? 0 : modelSceneIndex);
+                resetSceneTransform();
                 break;
             case hand:
                 switch (navigationMode) {
@@ -469,25 +471,34 @@ public class GLTFViewerDemo
         }
     }
 
+    private void switchScene(int newScene) {
+        GLTF gltf = gltfNode.getGLTF();
+        gltf.setDefaultScene(newScene);
+        sceneRotator.setNodeTarget(gltf.getDefaultScene());
+    }
+
     @Override
     public void onPressed(Button button) {
         SimpleLogger.d(getClass(), "onPressed() " + button.getId());
         Action action = Action.valueOf(button.getId());
-        Scene scene = gltfNode.getGLTF().getDefaultScene();
         switch (action) {
             case loadnext:
             case loadprevious:
                 addMessage(new Message(action.name(), null));
                 break;
             case reset:
-                scene.clearSceneTransform();
-                sceneRotator.resetRotation();
+                resetSceneTransform();
                 break;
             default:
                 // Do nothing
                 break;
         }
+    }
 
+    private void resetSceneTransform() {
+        Scene scene = gltfNode.getGLTF().getDefaultScene();
+        scene.clearSceneTransform();
+        sceneRotator.resetRotation();
     }
 
 }
