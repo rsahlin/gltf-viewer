@@ -6,6 +6,8 @@
         transform:{translate:[0,0,0],scale:[1,1,1],scaleLimit:{min:[0.001],max:[100.0]}},viewFrustum:{projection:ORTHOGONAL,values:[-1920,1920,-1080,1080,0,10]},
         children:
         [
+              {id:grid,type:meshnode,shape:{type:grid,values:[0,0,0.2,0.16,10,10]}},
+        
 //            {id:gltf,type:gltfnode,transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"waterbottle/WaterBottle.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"avocado/Avocado.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
