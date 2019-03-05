@@ -187,9 +187,10 @@ public class GLTFViewerDemo
         } else if (ip.isKeyPressed(java.awt.event.KeyEvent.VK_L)) {
             // Change light
             float width = viewFrustum.getWidth();
-            float intensity = (drag.getCurrentPosition()[0] + width / 2) / (width);
+            float intensity = (drag.getCurrentPosition()[0] + width / 2) / (width / 8);
             GlobalLight.getInstance().getLight().setIntensity(intensity);
             SimpleLogger.d(getClass(), "Intensity = " + intensity);
+            return;
         }
         if (gltfNode != null && gltfNode.getGLTF() != null) {
             switch (navigationMode) {
