@@ -14,6 +14,7 @@ import com.nucleus.common.Type;
 import com.nucleus.event.EventManager;
 import com.nucleus.event.EventManager.EventHandler;
 import com.nucleus.io.SceneSerializer;
+import com.nucleus.light.GlobalLight;
 import com.nucleus.mmi.Key;
 import com.nucleus.mmi.MMIPointer;
 import com.nucleus.mmi.MMIPointerInput;
@@ -152,7 +153,7 @@ public class GLTFViewerDemo
         switch (event.getAction()) {
             case MOVE:
                 float[] move = event.getPointerData().getDelta(1);
-                handleMouseMove(move);
+                handleMouseMove(event.getPointerData());
                 break;
             case ACTIVE:
                 break;
@@ -170,7 +171,8 @@ public class GLTFViewerDemo
         }
     }
 
-    protected void handleMouseMove(float[] move) {
+    protected void handleMouseMove(PointerMotion drag) {
+        float[] move = drag.getDelta(1);
         float[] translate = new float[] { move[0], move[1], 0 };
         CoreInput ip = CoreInput.getInstance();
         if (ip.isKeyPressed(java.awt.event.KeyEvent.VK_X)) {
@@ -182,6 +184,12 @@ public class GLTFViewerDemo
             translate[2] = -move[1];
             translate[0] = 0;
             translate[1] = 0;
+        } else if (ip.isKeyPressed(java.awt.event.KeyEvent.VK_L)) {
+            // Change light
+            float width = viewFrustum.getWidth();
+            float intensity = (drag.getCurrentPosition()[0] + width / 2) / (width);
+            GlobalLight.getInstance().getLight().setIntensity(intensity);
+            SimpleLogger.d(getClass(), "Intensity = " + intensity);
         }
         if (gltfNode != null && gltfNode.getGLTF() != null) {
             switch (navigationMode) {
@@ -406,8 +414,7 @@ public class GLTFViewerDemo
     @Override
     public boolean onDrag(Node obj, PointerMotion drag) {
         if (obj.getId().contentEquals("ui")) {
-            float[] move = drag.getDelta(1);
-            handleMouseMove(move);
+            handleMouseMove(drag);
         }
         return true;
     }
