@@ -1,5 +1,6 @@
 package com.super2k.gltfviewerdemo;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ import com.nucleus.scene.RootNodeBuilder;
 import com.nucleus.scene.RootNodeImpl;
 import com.nucleus.scene.gltf.AlignedNodeTransform;
 import com.nucleus.scene.gltf.GLTF;
+import com.nucleus.scene.gltf.PBRMetallicRoughness;
 import com.nucleus.scene.gltf.Scene;
 import com.nucleus.ui.Button;
 import com.nucleus.ui.Toggle;
@@ -185,12 +187,10 @@ public class GLTFViewerDemo
             translate[0] = 0;
             translate[1] = 0;
         } else if (ip.isKeyPressed(java.awt.event.KeyEvent.VK_L)) {
-            // Change light
-            float width = viewFrustum.getWidth();
-            float intensity = (drag.getCurrentPosition()[0] + width / 2) / (width / 8);
-            GlobalLight.getInstance().getLight().setIntensity(intensity);
-            SimpleLogger.d(getClass(), "Intensity = " + intensity);
+            changeLightIntensity(drag);
             return;
+        } else if (ip.isKeyPressed(KeyEvent.VK_E)) {
+            changeExposure(drag);
         }
         if (gltfNode != null && gltfNode.getGLTF() != null) {
             switch (navigationMode) {
@@ -204,6 +204,22 @@ public class GLTFViewerDemo
                     break;
             }
         }
+    }
+
+    private void changeLightIntensity(PointerMotion drag) {
+        // Change light
+        float width = viewFrustum.getWidth();
+        float intensity = (drag.getCurrentPosition()[0] + width / 2) / (width / 8);
+        GlobalLight.getInstance().getLight().setIntensity(intensity);
+        SimpleLogger.d(getClass(), "Intensity = " + intensity);
+    }
+
+    private void changeExposure(PointerMotion drag) {
+        // Change exposure
+        float width = viewFrustum.getWidth();
+        float exposure = (drag.getCurrentPosition()[0] + width / 2) / (width / 3);
+        PBRMetallicRoughness.setExposure(exposure);
+        SimpleLogger.d(getClass(), "Exposure = " + exposure);
     }
 
     @Override
