@@ -191,6 +191,7 @@ public class GLTFViewerDemo
             return;
         } else if (ip.isKeyPressed(KeyEvent.VK_E)) {
             changeExposure(drag);
+            return;
         }
         if (gltfNode != null && gltfNode.getGLTF() != null) {
             switch (navigationMode) {
@@ -467,11 +468,11 @@ public class GLTFViewerDemo
 
     @Override
     public void onStateChange(Toggle toggle) {
-        SimpleLogger.d(getClass(), "onStateChange() " + toggle.getId() + ", " + toggle.getSelected());
+        SimpleLogger.d(getClass(), "onStateChange() " + toggle.getId() + ", " + toggle.isSelected());
         Action action = Action.valueOf(toggle.getId());
         switch (action) {
             case camera:
-                switchScene(toggle.getSelected() == 0 ? 0 : modelSceneIndex);
+                switchScene(toggle.isSelected() ? 0 : modelSceneIndex);
                 resetSceneTransform();
                 break;
             case hand:
@@ -488,7 +489,7 @@ public class GLTFViewerDemo
                 SimpleLogger.d(getClass(), "Set navigation mode to " + navigationMode);
                 break;
             case tbn_vectors:
-                GLTF.debugTBN = !GLTF.debugTBN;
+                GLTF.debugTBN = toggle.isSelected();
                 break;
             default:
                 // Do nothing.
@@ -517,6 +518,16 @@ public class GLTFViewerDemo
                 // Do nothing
                 break;
         }
+    }
+
+    @Override
+    public void onInflated(Toggle toggle) {
+
+    }
+
+    @Override
+    public void onInflated(Button button) {
+
     }
 
     private void resetSceneTransform() {

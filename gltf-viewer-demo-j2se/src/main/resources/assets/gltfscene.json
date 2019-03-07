@@ -6,13 +6,13 @@
         transform:{translate:[0,0,0],scale:[1,1,1],scaleLimit:{min:[0.001],max:[100.0]}},viewFrustum:{projection:ORTHOGONAL,values:[-1920,1920,-1080,1080,0,10]},
         children:
         [
-              {id:grid,type:meshnode,shape:{type:grid,values:[0,0,0.2,0.16,10,10]}},
+//              {id:grid,type:meshnode,shape:{type:grid,values:[0,0,0.2,0.16,10,10]}},
         
 //            {id:gltf,type:gltfnode,transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"waterbottle/WaterBottle.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
-//            {id:gltf,type:gltfnode,glTFName:"avocado/Avocado.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
+            {id:gltf,type:gltfnode,glTFName:"avocado/Avocado.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"wood/wood.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
-              {id:gltf,type:gltfnode,glTFName:"great_white_shark/great_white_shark.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
+//              {id:gltf,type:gltfnode,glTFName:"great_white_shark/great_white_shark.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"gearboxassy/GearboxAssy.gltf",transform:{translate:[0,0,0],scale:[1,1,1],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"box/Box.gltf",transform:{translate:[0,0,0],scale:[0.5,0.5,0.5],axisAngle:{values:[0,1,0,0]}}}
 //            {id:gltf,type:gltfnode,glTFName:"boxtextured/BoxTextured.gltf",transform:{translate:[0,0,0],scale:[0.5,0.5,0.5],axisAngle:{values:[0,1,0,0]}}}
@@ -31,16 +31,16 @@
             maxQuads:100,
             children:[{
                 id:camera,type:toggle,bounds:{type:RECTANGULAR},
-                transform:{scale:[1,1,1],translate:[-1850,-980,0]},material:{emissive:[1,0.2,0.2,1]},selectedFrames:[0,10],
+                transform:{scale:[1,1,1],translate:[-1850,-980,0]},material:{emissive:[1,0.2,0.2,1]},selectedFrames:[10,0],
                 properties:{POINTERINPUT:true}},
                 {id:reset,type:button,bounds:{type:RECTANGULAR},
                 transform:{scale:[1,1,1],translate:[-1650,-980,0]},material:{emissive:[1,0.2,0.2,1]},frame:1,
                 properties:{POINTERINPUT:true}},
                 {id:hand,type:toggle,bounds:{type:RECTANGULAR},
-                transform:{scale:[1,1,1],translate:[-1450,-980,0]},material:{emissive:[1,0.2,0.2,1]},selectedFrames:[2,12],
+                transform:{scale:[1,1,1],translate:[-1450,-980,0]},material:{emissive:[1,0.2,0.2,1]},selectedFrames:[12,2],
                 properties:{POINTERINPUT:true}},
                 {id:tbn_vectors,type:toggle,bounds:{type:RECTANGULAR},
-                transform:{scale:[1,1,1],translate:[-1250,-980,0]},material:{emissive:[1,0.2,0.2,1]},selectedFrames:[5,15],
+                transform:{scale:[1,1,1],translate:[-1250,-980,0]},material:{emissive:[1,0.2,0.2,1]},selectedFrames:[15,5],selected:0,
                 properties:{POINTERINPUT:true}},
                 {id:loadprevious,type:button,bounds:{type:RECTANGULAR},
                 transform:{scale:[1,1,1],translate:[-200,980,0]},material:{emissive:[1,0.2,0.2,1]},frame:3,
