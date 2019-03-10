@@ -15,13 +15,13 @@ import com.nucleus.common.Type;
 import com.nucleus.event.EventManager;
 import com.nucleus.event.EventManager.EventHandler;
 import com.nucleus.io.SceneSerializer;
+import com.nucleus.io.SceneSerializer.NodeInflaterListener;
 import com.nucleus.light.GlobalLight;
 import com.nucleus.mmi.Key;
 import com.nucleus.mmi.MMIPointer;
 import com.nucleus.mmi.MMIPointerInput;
 import com.nucleus.mmi.Pointer;
 import com.nucleus.mmi.PointerMotion;
-import com.nucleus.mmi.UIElementInput;
 import com.nucleus.mmi.core.CoreInput;
 import com.nucleus.mmi.core.KeyInput;
 import com.nucleus.opengl.GLES20Wrapper;
@@ -43,12 +43,14 @@ import com.nucleus.scene.gltf.GLTF;
 import com.nucleus.scene.gltf.PBRMetallicRoughness;
 import com.nucleus.scene.gltf.Scene;
 import com.nucleus.ui.Button;
+import com.nucleus.ui.Element;
 import com.nucleus.ui.Toggle;
+import com.nucleus.ui.UIElementInput;
 import com.nucleus.vecmath.Vec2;
 
 public class GLTFViewerDemo
         implements MMIPointerInput, RenderContextListener, ClientApplication, EventHandler<Node>, UIElementInput,
-        KeyInput {
+        KeyInput, NodeInflaterListener {
 
     public enum Action {
         reset(),
@@ -234,9 +236,9 @@ public class GLTFViewerDemo
                 if (!serializer.isInitialized()) {
                     serializer.init(renderer.getGLES(), ClientClasses.values());
                 }
-                initScene(serializer.importScene("assets/", "gltfscene.json", RootNodeBuilder.NUCLEUS_SCENE), width,
-                        height);
+                root = serializer.importScene("assets/", "gltfscene.json", RootNodeBuilder.NUCLEUS_SCENE, this);
                 setup(width, height);
+                initScene(width, height);
 
             } catch (NodeException | GLException | IOException e) {
                 throw new RuntimeException(e);
@@ -253,8 +255,7 @@ public class GLTFViewerDemo
      * @throws GLException
      * @throws IOException
      */
-    protected void initScene(RootNode root, int width, int height) throws IOException, GLException {
-        this.root = root;
+    protected void initScene(int width, int height) throws IOException, GLException {
         viewFrustum = root.getNodeById("scene", LayerNode.class).getViewFrustum();
         gltfNode = root.getNodeById("gltf", GLTFNode.class);
         path = root.getProperty(RootNodeImpl.GLTF_PATH, null);
@@ -293,7 +294,6 @@ public class GLTFViewerDemo
 
         CoreInput.getInstance().setMaxPointers(20);
         CoreInput.getInstance().addKeyListener(this);
-        // InputProcessor.getInstance().addMMIListener(this);
         root.setObjectInputListener(this);
     }
 
@@ -521,13 +521,19 @@ public class GLTFViewerDemo
     }
 
     @Override
-    public void onInflated(Toggle toggle) {
-
-    }
-
-    @Override
-    public void onInflated(Button button) {
-
+    public void onInflated(Node node) {
+        if (node instanceof Element) {
+            Action action = Action.valueOf(node.getId());
+            if (action != null) {
+                switch (action) {
+                    case tbn_vectors:
+                        GLTF.debugTBN = ((Toggle) node).isSelected();
+                        break;
+                    default:
+                        // Do nothing
+                }
+            }
+        }
     }
 
     private void resetSceneTransform() {
