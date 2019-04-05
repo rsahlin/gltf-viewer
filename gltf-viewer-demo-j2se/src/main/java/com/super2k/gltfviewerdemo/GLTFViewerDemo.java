@@ -12,11 +12,11 @@ import com.nucleus.SimpleLogger;
 import com.nucleus.assets.AssetManager;
 import com.nucleus.camera.ViewFrustum;
 import com.nucleus.common.Type;
+import com.nucleus.environment.Lights;
 import com.nucleus.event.EventManager;
 import com.nucleus.event.EventManager.EventHandler;
 import com.nucleus.io.SceneSerializer;
 import com.nucleus.io.SceneSerializer.NodeInflaterListener;
-import com.nucleus.light.GlobalLight;
 import com.nucleus.mmi.Key;
 import com.nucleus.mmi.MMIPointer;
 import com.nucleus.mmi.MMIPointerInput;
@@ -213,7 +213,7 @@ public class GLTFViewerDemo
         // Change light
         float width = viewFrustum.getWidth();
         float intensity = (drag.getCurrentPosition()[0] + width / 2) / (width / 8);
-        GlobalLight.getInstance().getLight().setIntensity(intensity);
+        Lights.getInstance().getLight().setIntensity(intensity);
         SimpleLogger.d(getClass(), "Intensity = " + intensity);
     }
 
