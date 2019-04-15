@@ -80,10 +80,23 @@
             </plugins>
         </pluginManagement>
     </build>
+    <profiles>
+      <profile>
+        <id>Android</id>
+          <activation>
+            <property>
+              <name>Android</name>
+              <value>true</value>
+            </property>
+          </activation>
+          <modules>
+            <module>gltf-viewer-demo-android</module>
+          </modules>
+        </profile>
+      </profiles>
     <modules>
-        <module>gltf-viewer-demo-android</module>
-        <module>gltf-viewer-demo-jogl</module>
         <module>gltf-viewer-demo-j2se</module>
+        <module>gltf-viewer-demo-jogl</module>
         <module>gltf-viewer-demo-lwjgl</module>
     </modules>
 </project>
