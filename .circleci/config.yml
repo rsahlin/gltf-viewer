@@ -1,0 +1,36 @@
+version: 2.1
+jobs:
+  build-all:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+    steps:
+      - checkout
+      - run:
+          name: Download and build vecmath 
+          command: |
+            git clone https://github.com/rsahlin/vecmath.git
+            cd vecmath
+            mvn compile install
+      - run:
+          name: Download and build graphics-by-opengl
+          command: |
+            git clone https://github.com/rsahlin/graphics-by-opengl.git
+            cd graphics-by-opengl
+            mvn compile install -DskipTests -DAndroid=false
+      - run:
+          name: Download and build graphics-engine
+          command: |
+            git clone https://github.com/rsahlin/graphics-engine.git
+            cd graphics-engine
+            mvn compile install
+      - run:
+         name: Build GLTF-viewer
+         command: |
+           mvn compile install
+
+workflows:
+  version: 2.1
+  main:
+    jobs:
+      - build-all
