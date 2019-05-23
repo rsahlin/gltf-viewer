@@ -2,7 +2,7 @@ package com.super2k.gltfviewerdemo.android;
 
 import com.nucleus.CoreApp;
 import com.nucleus.android.NucleusActivity;
-import com.nucleus.opengl.GLESWrapper.Renderers;
+import com.nucleus.renderer.NucleusRenderer.Renderers;
 import com.super2k.gltfviewerdemo.GLTFViewerDemo;
 import com.super2k.gltfviewerdemo.GLTFViewerDemo.ClientClasses;
 

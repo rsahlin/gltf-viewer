@@ -25,11 +25,11 @@ import com.nucleus.mmi.PointerMotion;
 import com.nucleus.mmi.core.CoreInput;
 import com.nucleus.mmi.core.KeyInput;
 import com.nucleus.opengl.GLES20Wrapper;
-import com.nucleus.opengl.GLESWrapper.Mode;
-import com.nucleus.opengl.GLESWrapper.Renderers;
 import com.nucleus.opengl.GLException;
+import com.nucleus.renderer.Backend.DrawMode;
 import com.nucleus.renderer.NucleusRenderer;
 import com.nucleus.renderer.NucleusRenderer.RenderContextListener;
+import com.nucleus.renderer.NucleusRenderer.Renderers;
 import com.nucleus.renderer.Window;
 import com.nucleus.scene.GLTFNode;
 import com.nucleus.scene.LayerNode;
@@ -234,7 +234,7 @@ public class GLTFViewerDemo
                 SimpleLogger.d(getClass(), "Loading scene");
                 SceneSerializer<RootNode> serializer = GSONGraphicsEngineFactory.getInstance();
                 if (!serializer.isInitialized()) {
-                    serializer.init(renderer.getGLES(), ClientClasses.values());
+                    serializer.init(renderer, ClientClasses.values());
                 }
                 root = serializer.importScene("assets/", "gltfscene.json", RootNodeBuilder.NUCLEUS_SCENE, this);
                 setup(width, height);
@@ -284,7 +284,7 @@ public class GLTFViewerDemo
     }
 
     private void loadGLTFAsset() throws IOException, GLException {
-        gltfNode.loadGLTFAsset(renderer.getGLES(), gltfFilenames.get(modelIndex));
+        gltfNode.loadGLTFAsset(renderer, gltfFilenames.get(modelIndex));
         initGLTF(gltfNode.getGLTF());
     }
 
@@ -460,7 +460,7 @@ public class GLTFViewerDemo
 
     private void toggleSpace(Key event) {
         if (event.getAction() == com.nucleus.mmi.Key.Action.PRESSED) {
-            gltfNode.getNodeRenderer().forceRenderMode(Mode.POINTS);
+            gltfNode.getNodeRenderer().forceRenderMode(DrawMode.POINTS);
         } else {
             gltfNode.getNodeRenderer().forceRenderMode(null);
         }
