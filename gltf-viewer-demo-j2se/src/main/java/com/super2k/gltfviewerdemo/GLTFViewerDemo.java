@@ -460,9 +460,9 @@ public class GLTFViewerDemo
 
     private void toggleSpace(Key event) {
         if (event.getAction() == com.nucleus.mmi.Key.Action.PRESSED) {
-            gltfNode.getNodeRenderer().forceRenderMode(DrawMode.POINTS);
+            renderer.forceRenderMode(DrawMode.POINTS);
         } else {
-            gltfNode.getNodeRenderer().forceRenderMode(null);
+            renderer.forceRenderMode(null);
         }
     }
 
