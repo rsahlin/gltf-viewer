@@ -7,7 +7,7 @@ import com.super2k.gltfviewerdemo.GLTFViewerDemo.ClientClasses;
 public class GLTFViewerDemoJOGL extends JOGLApplication {
 
     public GLTFViewerDemoJOGL(String[] args) {
-        super(args, GLTFViewerDemo.GL_VERSION, ClientClasses.clientclass);
+        super(args, GLTFViewerDemo.RENDER_VERSION, ClientClasses.clientclass);
     }
 
     public static void main(String[] args) {

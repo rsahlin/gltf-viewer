@@ -7,7 +7,7 @@ import com.super2k.gltfviewerdemo.GLTFViewerDemo.ClientClasses;
 public class GLTFViewerDemoLWJGL3 extends LWJGL3Application {
 
     public GLTFViewerDemoLWJGL3(String[] args) {
-        super(args, GLTFViewerDemo.GL_VERSION, ClientClasses.clientclass);
+        super(args, GLTFViewerDemo.RENDER_VERSION, ClientClasses.clientclass);
 
     }
 
