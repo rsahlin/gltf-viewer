@@ -6,9 +6,11 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 import com.graphicsengine.io.GSONGraphicsEngineFactory;
+import com.nucleus.BackendException;
 import com.nucleus.CoreApp;
 import com.nucleus.CoreApp.ClientApplication;
 import com.nucleus.SimpleLogger;
+import com.nucleus.Backend.DrawMode;
 import com.nucleus.camera.ViewFrustum;
 import com.nucleus.common.FileUtils;
 import com.nucleus.common.Type;
@@ -25,11 +27,9 @@ import com.nucleus.mmi.PointerMotion;
 import com.nucleus.mmi.core.CoreInput;
 import com.nucleus.mmi.core.KeyInput;
 import com.nucleus.opengl.GLException;
-import com.nucleus.renderer.Backend.DrawMode;
 import com.nucleus.renderer.NucleusRenderer;
 import com.nucleus.renderer.NucleusRenderer.RenderContextListener;
 import com.nucleus.renderer.NucleusRenderer.Renderers;
-import com.nucleus.renderer.RenderBackendException;
 import com.nucleus.renderer.Window;
 import com.nucleus.scene.GLTFNode;
 import com.nucleus.scene.LayerNode;
@@ -384,7 +384,7 @@ public class GLTFViewerDemo
         if (gltfNode != null) {
             try {
                 gltfNode.deleteAsset(renderer);
-            } catch (RenderBackendException e) {
+            } catch (BackendException e) {
                 e.printStackTrace();
                 throw new IllegalArgumentException(e);
             }
