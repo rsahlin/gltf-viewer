@@ -19,7 +19,7 @@ public class GLTFViewerDemoActivity extends NucleusActivity {
 
     @Override
     public Renderers getRenderVersion() {
-        return GLTFViewerDemo.GL_VERSION;
+        return GLTFViewerDemo.RENDER_VERSION;
     }
 
     @Override
