@@ -5,47 +5,37 @@
     <parent>
         <groupId>com.super2k.gltf-viewer-demo</groupId>
         <artifactId>gltf-viewer-demo</artifactId>
-        <version>0.2</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <properties>
-        <lwjgl.version>3.1.6</lwjgl.version>
-    </properties>
     <artifactId>gltf-viewer-demo-lwjgl3</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>
-            <version>${lwjgl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-egl</artifactId>
-            <version>${lwjgl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-jawt</artifactId>
-            <version>${lwjgl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-glfw</artifactId>
-            <version>${lwjgl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-opencl</artifactId>
-            <version>${lwjgl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-opengl</artifactId>
-            <version>${lwjgl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-opengles</artifactId>
-            <version>${lwjgl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
@@ -82,7 +72,6 @@
         <dependency>
             <groupId>com.super2k.gltf-viewer-demo</groupId>
             <artifactId>gltf-viewer-demo-j2se</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <profiles>

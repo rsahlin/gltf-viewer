@@ -27,7 +27,6 @@
         <dependency>
             <groupId>com.super2k.gltf-viewer-demo</groupId>
             <artifactId>gltf-viewer-demo-j2se</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <build>

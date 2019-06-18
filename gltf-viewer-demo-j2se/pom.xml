@@ -5,11 +5,9 @@
     <parent>
         <groupId>com.super2k.gltf-viewer-demo</groupId>
         <artifactId>gltf-viewer-demo</artifactId>
-        <version>0.2</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>gltf-viewer-demo-j2se</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>gltf-viewer-demo-j2se</name>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -34,10 +32,6 @@
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.1</version>
-                    <configuration>
-                        <source>1.7</source>
-                        <target>1.7</target>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

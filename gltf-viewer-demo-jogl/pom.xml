@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.super2k.gltf-viewer-demo</groupId>
         <artifactId>gltf-viewer-demo</artifactId>
-        <version>0.2</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>gltf-viewer-demo-jogl</artifactId>
     <name>gltf-viewer-demo-jogl</name>
@@ -14,7 +14,6 @@
         <dependency>
             <groupId>com.super2k.gltf-viewer-demo</groupId>
             <artifactId>gltf-viewer-demo-j2se</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.super2k.graphics-by-opengl</groupId>
