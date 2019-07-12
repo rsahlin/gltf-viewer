@@ -6,11 +6,11 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 import com.graphicsengine.io.GSONGraphicsEngineFactory;
+import com.nucleus.Backend.DrawMode;
 import com.nucleus.BackendException;
 import com.nucleus.CoreApp;
 import com.nucleus.CoreApp.ClientApplication;
 import com.nucleus.SimpleLogger;
-import com.nucleus.Backend.DrawMode;
 import com.nucleus.camera.ViewFrustum;
 import com.nucleus.common.FileUtils;
 import com.nucleus.common.Type;
@@ -90,7 +90,7 @@ public class GLTFViewerDemo
     public static final String GLTFVIEWER_DEMO = "gltfviewer";
     public static final String NAME = "GLTF Render demo";
     public static final String VERSION = "0.5";
-    public static final Renderers RENDER_VERSION = Renderers.GLES31;
+    public static Renderers RENDER_VERSION = Renderers.GLES32;
 
     private ArrayDeque<Message> messages = new ArrayDeque<>();
 
