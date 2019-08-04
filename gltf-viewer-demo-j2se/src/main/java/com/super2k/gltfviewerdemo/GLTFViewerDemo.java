@@ -26,7 +26,6 @@ import com.nucleus.mmi.Pointer;
 import com.nucleus.mmi.PointerMotion;
 import com.nucleus.mmi.core.CoreInput;
 import com.nucleus.mmi.core.KeyInput;
-import com.nucleus.opengl.GLException;
 import com.nucleus.renderer.NucleusRenderer;
 import com.nucleus.renderer.NucleusRenderer.RenderContextListener;
 import com.nucleus.renderer.NucleusRenderer.Renderers;
@@ -240,7 +239,7 @@ public class GLTFViewerDemo
                 setup(width, height);
                 initScene(width, height);
 
-            } catch (NodeException | GLException | IOException e) {
+            } catch (NodeException | BackendException | IOException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -252,10 +251,10 @@ public class GLTFViewerDemo
      * @param root
      * @param width
      * @param height
-     * @throws GLException
+     * @throws BackendException
      * @throws IOException
      */
-    protected void initScene(int width, int height) throws IOException, GLException {
+    protected void initScene(int width, int height) throws IOException, BackendException {
         viewFrustum = root.getNodeById("scene", LayerNode.class).getViewFrustum();
         gltfNode = root.getNodeById("gltf", GLTFNode.class);
         path = root.getProperty(RootNodeImpl.GLTF_PATH, null);
@@ -283,7 +282,7 @@ public class GLTFViewerDemo
         modelSceneIndex = gltf.addScene(modelScene);
     }
 
-    private void loadGLTFAsset() throws IOException, GLException {
+    private void loadGLTFAsset() throws IOException, BackendException {
         gltfNode.loadGLTFAsset(renderer, gltfFilenames.get(modelIndex));
         initGLTF(gltfNode.getGLTF());
     }
@@ -403,7 +402,7 @@ public class GLTFViewerDemo
                     modelIndex = 0;
                 }
                 loadGLTFAsset();
-            } catch (GLException | IOException e) {
+            } catch (BackendException | IOException e) {
                 e.printStackTrace();
             }
         } else {
