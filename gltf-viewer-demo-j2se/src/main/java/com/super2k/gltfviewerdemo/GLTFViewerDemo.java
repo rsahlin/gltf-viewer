@@ -89,7 +89,7 @@ public class GLTFViewerDemo
     public static final String GLTFVIEWER_DEMO = "gltfviewer";
     public static final String NAME = "GLTF Render demo";
     public static final String VERSION = "0.5";
-    public static Renderers RENDER_VERSION = Renderers.GLES32;
+    public static Renderers RENDER_VERSION = Renderers.GLES30;
 
     private ArrayDeque<Message> messages = new ArrayDeque<>();
 
@@ -100,7 +100,7 @@ public class GLTFViewerDemo
     private AlignedNodeTransform sceneRotator;
     private EventConfiguration eventConfig = new EventConfiguration(0.5f, 30f);
 
-    private String[] folders;
+    private ArrayList<String> folders;
     /**
      * List of found .gltf filenames - including folder name
      */
@@ -259,7 +259,7 @@ public class GLTFViewerDemo
         gltfNode = root.getNodeById("gltf", GLTFNode.class);
         path = root.getProperty(RootNodeImpl.GLTF_PATH, null);
         folders = FileUtils.getInstance().listResourceFolders(path);
-        gltfFilenames = FileUtils.getInstance().listFiles(path, folders, ".gltf");
+        gltfFilenames = FileUtils.getInstance().listFilesToString(path, folders, new String[] {".gltf" });
         float[] values = viewFrustum.getValues();
         // If y is going down then reverse y so that 0 is at bottom which is the same as OpenGL
         CoreInput.getInstance().setPointerTransform(viewFrustum.getWidth() / width,
