@@ -259,7 +259,7 @@ public class GLTFViewerDemo
         gltfNode = root.getNodeById("gltf", GLTFNode.class);
         path = root.getProperty(RootNodeImpl.GLTF_PATH, null);
         folders = FileUtils.getInstance().listResourceFolders(path);
-        gltfFilenames = FileUtils.getInstance().listFilesToString(path, folders, new String[] {".gltf" });
+        gltfFilenames = FileUtils.getInstance().listFiles(path, folders, new String[] { ".gltf" });
         float[] values = viewFrustum.getValues();
         // If y is going down then reverse y so that 0 is at bottom which is the same as OpenGL
         CoreInput.getInstance().setPointerTransform(viewFrustum.getWidth() / width,
