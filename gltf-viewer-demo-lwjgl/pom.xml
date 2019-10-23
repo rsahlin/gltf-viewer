@@ -101,6 +101,30 @@
             </properties>
         </profile>
         <profile>
+            <id>lwjgl-natives-linux-arm32</id>
+            <activation>
+                <property>
+                    <name>target.platform</name>
+                    <value>linux-arm32</value>
+                </property>
+            </activation>
+            <properties>
+                <lwjgl.natives>natives-linux-arm32</lwjgl.natives>
+            </properties>
+        </profile>
+        <profile>
+            <id>lwjgl-natives-linux-arm64</id>
+            <activation>
+                <property>
+                    <name>target.platform</name>
+                    <value>linux-arm64</value>
+                </property>
+            </activation>
+            <properties>
+                <lwjgl.natives>natives-linux-arm64</lwjgl.natives>
+            </properties>
+        </profile>
+        <profile>
             <id>lwjgl-natives-macos</id>
             <activation>
                 <property>
