@@ -9,7 +9,7 @@ See #graphics-by-opengl for more information regarding implementation / source.
 A couple of models are included in the .jar build (found in 'builds' folder) - press left / right arrow to cycle through available models.  
 
 See wiki for more information:  
-[[https://github.com/rsahlin/gltf-viewer/wiki/home]]
+[https://github.com/rsahlin/gltf-viewer/wiki/home]
 
 This project depends on:  
 
