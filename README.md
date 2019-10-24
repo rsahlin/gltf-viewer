@@ -18,19 +18,21 @@ Jar builds are in the 'builds' folder - currently built for windows.
 - How to run .jar file
 - Windows doubleclick on .jar or run_windows.bat file.
 
-Command line arguments:
-WINDOW-WIDTH=INT
-WINDOW-HEIGHT=INT
-FULLSCREEN=BOOLEAN
+Command line arguments: 
+WINDOW-WIDTH=INT  
+WINDOW-HEIGHT=INT  
+FULLSCREEN=BOOLEAN  
 
 
-This project depends on:
+[](waterbottle.png)
 
-#graphics-by-opengl
+This project depends on:  
 
-#graphics-engine
+#graphics-by-opengl  
 
-#vecmath
+#graphics-engine  
+
+#vecmath  
 
 
 
