@@ -23,7 +23,7 @@ WINDOW-WIDTH=INT
 WINDOW-HEIGHT=INT  
 FULLSCREEN=BOOLEAN  
 
-[[https://github.com/rsahlin/gltf-viewer/waterbottle.png|alt=Rendered image using graphics-by-opengl]]
+[https://github.com/rsahlin/gltf-viewer/waterbottle.png]
 
 This project depends on:  
 
