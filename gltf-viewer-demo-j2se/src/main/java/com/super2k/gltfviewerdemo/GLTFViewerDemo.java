@@ -2,6 +2,7 @@ package com.super2k.gltfviewerdemo;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
@@ -239,7 +240,7 @@ public class GLTFViewerDemo
                 setup(width, height);
                 initScene(width, height);
 
-            } catch (NodeException | BackendException | IOException e) {
+            } catch (NodeException | BackendException | IOException | URISyntaxException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -254,7 +255,7 @@ public class GLTFViewerDemo
      * @throws BackendException
      * @throws IOException
      */
-    protected void initScene(int width, int height) throws IOException, BackendException {
+    protected void initScene(int width, int height) throws IOException, URISyntaxException, BackendException {
         viewFrustum = root.getNodeById("scene", LayerNode.class).getViewFrustum();
         gltfNode = root.getNodeById("gltf", GLTFNode.class);
         path = root.getProperty(RootNodeImpl.GLTF_PATH, null);
