@@ -1,0 +1,11 @@
+rootProject.name = 'gltf-viewer-demo'
+include ':gltf-viewer-demo-j2se', ':gltf-viewer-demo-android'
+include ':vecmath', ':graphics-engine'
+include ':graphics-by-opengl-j2se', ':graphics-by-opengl-android'
+
+project(':gltf-viewer-demo-android').projectDir = new File('gltf-viewer-demo-android')
+project(':gltf-viewer-demo-j2se').projectDir = new File('gltf-viewer-demo-j2se')
+project(':graphics-engine').projectDir = new File('../graphics-engine')
+project(':vecmath').projectDir = new File('../vecmath')
+project(':graphics-by-opengl-j2se').projectDir = new File('../graphics-by-opengl/graphics-by-opengl-j2se')
+project(':graphics-by-opengl-android').projectDir = new File('../graphics-by-opengl/graphics-by-opengl-android')

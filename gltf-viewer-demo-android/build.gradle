@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.3'
+    }
+}
+
+apply plugin: 'com.android.application'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    google()
+}
+
+android {
+    compileSdkVersion 29
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    lintOptions {
+        disable 'MissingTranslation'
+    }
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['res']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['res']
+        }
+    }
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1"
+        multiDexEnabled true
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation 'com.google.android.gms:play-services:10.0.1'
+    implementation 'com.android.support:multidex:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:2.+"
+    implementation project(path: ':gltf-viewer-demo-j2se')
+    implementation project(path: ':graphics-by-opengl-android')
+    implementation project(path: ':graphics-by-opengl-j2se')
+    implementation project(path: ':graphics-engine')
+    implementation project(path: ':vecmath')
+}

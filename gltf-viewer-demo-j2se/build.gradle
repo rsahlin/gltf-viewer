@@ -1,0 +1,22 @@
+group = 'com.super2k.gltf-viewer-demo'
+version = '0.0.1-SNAPSHOT'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+apply plugin: 'java'
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.1'
+    testImplementation 'junit:junit:4.12'
+    implementation project(path: ':graphics-engine')
+    implementation project(path: ':graphics-by-opengl-j2se')
+    implementation project(path: ':vecmath')
+}
