@@ -1,5 +1,10 @@
 # gltf-viewer
 
+## Deprecated - code is re-designed to support Vulkan [https://github.com/rsahlin/varg-engine]  
+  
+## This project is discontinued.  
+
+  
 GLTF Model Viewer
 
 Supports loading and viewing of gltf models.    
